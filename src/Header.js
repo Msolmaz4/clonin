@@ -28,7 +28,8 @@ const Header = () => {
           <HeaderOption Icon= {SupervisorAccountIcon} title='My Network' />
           <HeaderOption Icon= {BusinessCenterIcon} title='Jobs' />
           <HeaderOption Icon= {ChatBubbleOutlineIcon} title='Messaging' />
-          <HeaderOption Icon= {NotificationsIcon} title='Notifications' />
+          <HeaderOption Icon= {NotificationsIcon} title='Notifications'/>
+          <HeaderOption avatar ='rimage/2.jpg' title='me' />
         </div>
         
         
