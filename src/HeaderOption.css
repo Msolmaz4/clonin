@@ -1,0 +1,11 @@
+.headerOption{
+    display: flex;
+    flex-direction: column;/**column = yukarıdan aşağı doğru sıralar. */
+    align-items: center;
+    margin-right: 20px;
+    color: gray;
+    cursor: pointer;
+}
+.headerOption:hover{
+    color: black;
+}

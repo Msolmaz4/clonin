@@ -1,0 +1,37 @@
+
+.header{
+    position: sticky;/*sabit tutar*/
+    top: 0;
+    display: flex;
+    justify-content: space-evenly;
+    border-bottom: 0.1px solid lightgray;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    z-index: 999;
+
+}
+.header_left{
+    display: flex;
+}
+.header_left > img {
+    object-fit: contain;/*Object fit özelliği, resim veya videolarımızı ebeveyn etiketleri içerisinde uygun bir şekilde boyutlandırmamızı sağlar. 5 değer verebiliyoruz. Bunlar; ► contain : Resmin genişlik ve yükseklik değerlerinden büyük olanı, uygulandığı etiketi kapsayacak şekilde yerleştirili */
+    height: 40px;
+    margin-right: 10px;
+}
+.header_search {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    height: 22px;
+    color: gray;
+}
+.header_search > input {
+    outline: none;
+    border: none;
+    background: none;
+}
+.header_right{
+    display: flex;
+}
