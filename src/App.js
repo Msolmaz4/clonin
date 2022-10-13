@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Header';
 import './App.css';
 import Siedbar from './Siedbar';
+import Feed from './Feed';
 
 
 
@@ -17,6 +18,8 @@ function App() {
      {/** deneme */}
      <div className='app_body'>
      <Siedbar/>
+     {/**feed */}
+     <Feed/>
      </div>
     
     </div>

@@ -3,6 +3,18 @@ import React from 'react'
 import './Siedbar.css'
 
 const Siedbar = () => {
+//burada normalde { } parantey kullnilirdi amam ( ) bunu kulandi 
+ const recentItem =(topic)=>
+    (<div className='siedbar_recentItem'>
+      <span className='siedbar_hash'>#</span>
+      <p>{topic}</p>
+
+    </div> )
+
+ 
+
+
+
   return (
     <div className='siedbar'>
         <div className='siedbar_top'>
@@ -24,6 +36,9 @@ const Siedbar = () => {
         </div>
         <div className='siedbar_bottom'>
             <p>recent</p>
+            {recentItem('reactjs')}
+            {recentItem('developer')}
+            {recentItem('design')}
         </div>
         </div>
   )
