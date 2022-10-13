@@ -8,7 +8,8 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 import CalendarViewDayIcon from "@mui/icons-material/CalendarViewDay";
 import Post from "./Post";
 import { db } from "./firebase";
-import { collection, onSnapshot,serverTimestamp,addDoc } from "@firebase/firestore";
+import { collection, onSnapshot,serverTimestamp,addDoc, orderBy,query } from "@firebase/firestore";
+
 
 const Feed = () => {
   const [input, setInput] = useState("");
@@ -30,12 +31,26 @@ const Feed = () => {
         }))
       );
  */
-
-
-  useEffect(() => {
+//burda en son yazilani yukarida tutmak icin orderBz komutu var firebas de  basta en temel hali onSnapten
+/**
+ *   useEffect(() => {
     onSnapshot(collection(db, "posts"), (snapshot) => {
       setPosts(snapshot.docs.map((doc)=>doc.data()))
     });
+  }, []);
+  bundan sonra oderBy yaptim buraya kadar on numara 
+ */
+
+  useEffect(() => {
+    
+     query( orderBy('timestamp','desc')) 
+
+   onSnapshot(collection(db, "posts"), (snapshot) => {
+      setPosts(snapshot.docs.map((doc)=>doc.data()))
+    });
+    
+    
+    
   }, []);
 
   
@@ -45,7 +60,7 @@ const Feed = () => {
 
     try {
 
-     await addDoc(collection(db, "posts"), {
+       await addDoc(collection(db, "posts"), {
             name:'sonny',
             description:'test',
             message:input,
@@ -53,13 +68,16 @@ const Feed = () => {
             timestamp:serverTimestamp()
           });
          
+        setInput('')
+         
           
     } catch (e) {
         console.error("Error adding document: ", e);
+        
 
     }
 
-
+ 
 /**
  * db.collection('posts').add({
         name:'sonny',
@@ -78,7 +96,7 @@ const Feed = () => {
       <div className="feed_inputContainer">
         <div className="feed_input">
           <CreateIcon />
-          <form onSubmit={sendPost}>
+          <form>
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
