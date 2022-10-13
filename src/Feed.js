@@ -42,10 +42,10 @@ const Feed = () => {
  */
 
   useEffect(() => {
-    
-     query( orderBy('timestamp','desc')) 
+    const colRef = collection(db, "posts")
+    const q = query(colRef, orderBy("timestamp", "desc"))
 
-   onSnapshot(collection(db, "posts"), (snapshot) => {
+   onSnapshot(q,(snapshot) => {
       setPosts(snapshot.docs.map((doc)=>doc.data()))
     });
     
