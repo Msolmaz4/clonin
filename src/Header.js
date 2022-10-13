@@ -18,7 +18,7 @@ const Header = () => {
             <div className='header_search'>
                 {/**search icon */}
                 <ZoomOutIcon/>
-               <input type='text'></input>
+               <input placeholder='search' type='text'></input>
             </div>
 
         </div>
