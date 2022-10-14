@@ -64,7 +64,7 @@ const Feed = () => {
             name:'sonny',
             description:'test',
             message:input,
-            photoUrl:'',
+            photoURL:'',
             timestamp:serverTimestamp()
           });
          
@@ -134,7 +134,7 @@ const Feed = () => {
         name={dad.name}
         description={dad.description}
         message={dad.message}
-        photoUrl={dad.photoUrl}
+        photoURL={dad.photoURL}
         />
       ))}
    

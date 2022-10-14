@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import './Login.css'
-import {  createUserWithEmailAndPassword } from "firebase/auth";
+import {  createUserWithEmailAndPassword,updateProfile } from "firebase/auth";
 import { auth } from './firebase';
+import { useDispatch } from 'react-redux';
+import { login } from './features/counter/userSlice';
 
+import { nanoid } from 'nanoid'
 
 
 const Login = () => {
@@ -11,19 +14,44 @@ const Login = () => {
     const [password,setPassword] = useState()
     const [name,setName] = useState()
     const [profilePic,setProfilPic] = useState()
+//redux
+//2
+const dispatch = useDispatch()
+
 
     const loginToApp = (e)=>{
         e.preventDefault()
     }
-
-
+//Bir kullanıcının profilini güncelleme
+//Bir kullanıcının temel profil bilgilerini (kullanıcının görünen adı ve profil fotoğrafı URL'si) updateProfile yöntemiyle güncelleyebilirsiniz.
+//2
 const register=()=>{
     if(!name) return alert('please enter Name')
      createUserWithEmailAndPassword(auth,email,password)
-     .then((userAuth)=>{
-     
-     })
 
+  updateProfile(auth.userAuth,{
+        displayName:name,
+        photoURL:profilePic
+       })
+    
+        dispatch(login({
+            email:email,
+            uid:nanoid(),
+            displayName:name,
+            photoURL:profilePic
+
+
+        }))
+
+
+
+     
+   
+        
+   
+
+ 
+     .catch((err)=>alert(err))
 }
 
 
