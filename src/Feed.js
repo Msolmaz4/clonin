@@ -9,9 +9,15 @@ import CalendarViewDayIcon from "@mui/icons-material/CalendarViewDay";
 import Post from "./Post";
 import { db } from "./firebase";
 import { collection, onSnapshot,serverTimestamp,addDoc, orderBy,query } from "@firebase/firestore";
+import { useSelector } from "react-redux";
+import { selectUser } from "./features/counter/userSlice";
 
 
 const Feed = () => {
+
+  //2
+const user = useSelector(selectUser)
+
   const [input, setInput] = useState("");
   const [posts, setPosts] = useState([]);
   //  db.collection('posts') burda kendimiy yaptik
@@ -61,10 +67,10 @@ const Feed = () => {
     try {
 
        await addDoc(collection(db, "posts"), {
-            name:'sonny',
-            description:'test',
+            name:user.displayName,
+            description:user.email,
             message:input,
-            photoURL:'',
+            photoUrl:user.photoUrl || '',
             timestamp:serverTimestamp()
           });
          
@@ -134,7 +140,7 @@ const Feed = () => {
         name={dad.name}
         description={dad.description}
         message={dad.message}
-        photoURL={dad.photoURL}
+        photoUrl={dad.photoUrl}
         />
       ))}
    

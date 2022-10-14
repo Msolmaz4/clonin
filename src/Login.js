@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Login.css";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile,signInWithEmailAndPassword  } from "firebase/auth";
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
 import { login } from "./features/counter/userSlice";
@@ -15,9 +15,23 @@ const Login = () => {
   //redux
   //2
   const dispatch = useDispatch();
-
+//login yaparken user unut ma bu redux karsilik
   const loginToApp = (e) => {
     e.preventDefault();
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userAuth)=>{
+      dispatch(login({
+        email:userAuth.user.email,
+        uid:userAuth.user.uid,
+        displayName:userAuth.user.displayName,
+        profileUrl:userAuth.user.photoURL
+      }))
+    })
+    .catch(err=>alert(err))
+
+
+
+
   };
   //Bir kullanıcının profilini güncelleme
   //Bir kullanıcının temel profil bilgilerini (kullanıcının görünen adı ve profil fotoğrafı URL'si) updateProfile yöntemiyle güncelleyebilirsiniz.
@@ -33,10 +47,10 @@ const Login = () => {
     //baglanti2
     dispatch(
       login({
-        email: email,
+        email:email,
         uid: nanoid(),
         displayName: name,
-        photoURL: profilePic,
+        photoUrl: profilePic,
       })
     ).catch((err) => alert(err));
   };
