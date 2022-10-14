@@ -7,6 +7,7 @@ import "./Siedbar.css";
 const Siedbar = () => {
   //2
   const user = useSelector(selectUser);
+  console.log('siedbar',user)
 
   //burada normalde { } parantey kullnilirdi amam ( ) bunu kulandi
   const recentItem = (topic) => (
@@ -19,7 +20,7 @@ const Siedbar = () => {
   return (
     <div className="siedbar">
       <div className="siedbar_top">
-        <img src={user.photoUrl} alt="" />
+        <img src='rimage/an.jpg' alt="" />
         <Avatar className="siedbar_avatar">{user.email[0]}</Avatar>
         {/** reduxtan once
              *  <img src='rimage/3.jpg' alt=''/>
@@ -37,7 +38,7 @@ const Siedbar = () => {
         </div>
         <div className="siedbar_stat">
           <p>views on post</p>
-          <p className="siedbar_statNumber">2,54</p>
+          <p className="siedbar_statNumber">4,54</p>
         </div>
       </div>
       <div className="siedbar_bottom">

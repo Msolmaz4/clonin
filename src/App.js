@@ -8,6 +8,7 @@ import { login, logout, selectUser } from "./features/counter/userSlice";
 import Login from "./Login";
 import { onAuthStateChanged } from "firebase/auth";
 import {auth} from './firebase'
+import Widgets from "./Widgets";
 
 
 
@@ -61,8 +62,8 @@ const dispatch = useDispatch()
       ) : (
         <div className="app_body">
           <Siedbar />
-
           <Feed />
+          <Widgets/>
         </div>
       )}
     </div>

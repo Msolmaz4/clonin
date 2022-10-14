@@ -8,15 +8,25 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 import CalendarViewDayIcon from "@mui/icons-material/CalendarViewDay";
 import Post from "./Post";
 import { db } from "./firebase";
-import { collection, onSnapshot,serverTimestamp,addDoc, orderBy,query } from "@firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  serverTimestamp,
+  addDoc,
+  orderBy,
+  query,
+} from "@firebase/firestore";
 import { useSelector } from "react-redux";
 import { selectUser } from "./features/counter/userSlice";
+import FlipMove from "react-flip-move";
 
+import Button from "@mui/material/Button";
+import SendIcon from "@mui/icons-material/Send";
+import Stack from "@mui/material/Stack";
 
 const Feed = () => {
-
   //2
-const user = useSelector(selectUser)
+  const user = useSelector(selectUser);
 
   const [input, setInput] = useState("");
   const [posts, setPosts] = useState([]);
@@ -29,7 +39,7 @@ const user = useSelector(selectUser)
 
   //setpost heran gince.l.emek icin doc maplaeyim anlik takip
   //documanlara bakaram yaptik https://www.youtube.com/watch?v=rfQ2F8kQEUg
-/**
+  /**
  * setPosts(
         snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -37,8 +47,8 @@ const user = useSelector(selectUser)
         }))
       );
  */
-//burda en son yazilani yukarida tutmak icin orderBz komutu var firebas de  basta en temel hali onSnapten
-/**
+  //burda en son yazilani yukarida tutmak icin orderBz komutu var firebas de  basta en temel hali onSnapten
+  /**
  *   useEffect(() => {
     onSnapshot(collection(db, "posts"), (snapshot) => {
       setPosts(snapshot.docs.map((doc)=>doc.data()))
@@ -48,43 +58,33 @@ const user = useSelector(selectUser)
  */
 
   useEffect(() => {
-    const colRef = collection(db, "posts")
-    const q = query(colRef, orderBy("timestamp", "desc"))
+    const colRef = collection(db, "posts");
+    const q = query(colRef, orderBy("timestamp", "desc"));
 
-   onSnapshot(q,(snapshot) => {
-      setPosts(snapshot.docs.map((doc)=>doc.data()))
+    onSnapshot(q, (snapshot) => {
+      setPosts(snapshot.docs.map((doc) => doc.data()));
     });
-    
-    
-    
   }, []);
 
-  
-//serverstamp yamani kayedere
+  //serverstamp yamani kayedere
   const sendPost = async (e) => {
     e.preventDefault();
 
     try {
+      await addDoc(collection(db, "posts"), {
+        name: user.displayName,
+        description: user.email,
+        message: input,
+        photoUrl: user.photoUrl || "",
+        timestamp: serverTimestamp(),
+      });
 
-       await addDoc(collection(db, "posts"), {
-            name:user.displayName,
-            description:user.email,
-            message:input,
-            photoUrl:user.photoUrl || '',
-            timestamp:serverTimestamp()
-          });
-         
-        setInput('')
-         
-          
+      setInput("");
     } catch (e) {
-        console.error("Error adding document: ", e);
-        
-
+      console.error("Error adding document: ", e);
     }
 
- 
-/**
+    /**
  * db.collection('posts').add({
         name:'sonny',
         description:'test',
@@ -93,8 +93,6 @@ const user = useSelector(selectUser)
         timestamp:serverTimestamp()
     })
  */
-
-    
   };
 
   return (
@@ -108,9 +106,17 @@ const user = useSelector(selectUser)
               onChange={(e) => setInput(e.target.value)}
               type="text"
             />
-            <button onClick={sendPost} type="submit">
-              Send
-            </button>
+
+            <Stack direction="row" spacing={2}>
+              <Button
+                variant="contained"
+                type="submit"
+                onClick={sendPost}
+                endIcon={<SendIcon />}
+              >
+                Send
+              </Button>
+            </Stack>
           </form>
         </div>
         <div className="feed_inputOptions">
@@ -125,7 +131,7 @@ const user = useSelector(selectUser)
         </div>
       </div>
       {/**POST */}
-{/**basta yukaridda formul yayilir
+      {/**basta yukaridda formul yayilir
  * sonra burda duyenlem yapilir
  * {posts.map((post) => (
         <Post />
@@ -134,16 +140,17 @@ const user = useSelector(selectUser)
 {id,data:{name,description,message,photoUrl}}
 
  */}
-      {posts.map((dad) => (
-        <Post 
-        key={dad.id}
-        name={dad.name}
-        description={dad.description}
-        message={dad.message}
-        photoUrl={dad.photoUrl}
-        />
-      ))}
-   
+      <FlipMove>
+        {posts.map((dad) => (
+          <Post
+            key={dad.id}
+            name={dad.name}
+            description={dad.description}
+            message={dad.message}
+            photoUrl={dad.photoUrl}
+          />
+        ))}
+      </FlipMove>
     </div>
   );
 };

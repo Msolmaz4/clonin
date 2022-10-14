@@ -12,6 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState();
   const [name, setName] = useState();
   const [profilePic, setProfilPic] = useState();
+  console.log('login',name)
   //redux
   //2
   const dispatch = useDispatch();
@@ -26,12 +27,9 @@ const Login = () => {
         displayName:userAuth.user.displayName,
         profileUrl:userAuth.user.photoURL
       }))
+    
     })
     .catch(err=>alert(err))
-
-
-
-
   };
   //Bir kullanıcının profilini güncelleme
   //Bir kullanıcının temel profil bilgilerini (kullanıcının görünen adı ve profil fotoğrafı URL'si) updateProfile yöntemiyle güncelleyebilirsiniz.
