@@ -18,7 +18,7 @@ import {
 } from "@firebase/firestore";
 import { useSelector } from "react-redux";
 import { selectUser } from "./features/counter/userSlice";
-import FlipMove from "react-flip-move";
+
 
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
@@ -140,7 +140,7 @@ const Feed = () => {
 {id,data:{name,description,message,photoUrl}}
 
  */}
-      <FlipMove>
+    
         {posts.map((dad) => (
           <Post
             key={dad.id}
@@ -150,7 +150,7 @@ const Feed = () => {
             photoUrl={dad.photoUrl}
           />
         ))}
-      </FlipMove>
+     
     </div>
   );
 };

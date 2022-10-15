@@ -21,7 +21,7 @@ const Siedbar = () => {
     <div className="siedbar">
       <div className="siedbar_top">
         <img src='rimage/an.jpg' alt="" />
-        <Avatar className="siedbar_avatar">{user.email[0]}</Avatar>
+        <Avatar src={user.photoUrl} className="siedbar_avatar">{user.email[0]}</Avatar>
         {/** reduxtan once
              *  <img src='rimage/3.jpg' alt=''/>
              *   <h2>aaaaaa</h2>
